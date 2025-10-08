@@ -4,7 +4,7 @@
 
 @section('main-content')
 <div class="card">
-<h5 class="card-header">Order       
+<h5 class="card-header">Sargytlar       
   </h5>
   <div class="card-body">
     @if($order)

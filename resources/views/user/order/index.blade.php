@@ -36,7 +36,7 @@
             <th>Email</th>                 <!-- Elektron poçta -->
             <th>Mukdary</th>               <!-- Quantity -->
             <th>Tölegi</th>                <!-- Charge -->
-            <th>Jemi Mukdar</th>           <!-- Total Amount -->
+            <th>Jemi Mukdar</th>           <!-- Total Amount -->  
             <th>Durum</th>                 <!-- Status -->
             <th>Ýagdaýy</th> 
               </tr>
@@ -49,8 +49,8 @@
                     <td>{{$order->first_name}} {{$order->last_name}}</td>
                     <td>{{$order->email}}</td>
                     <td>{{$order->quantity}}</td>
-                    <td>${{$order->shipping->price}}</td>
-                    <td>{{number_format($order->total_amount,2)}}TMT</td>
+            <td>{{ $order->shipping->price ?? '' }} TMT</td> 
+            <td>{{number_format($order->total_amount,2)}}TMT</td>
                     <td>
                         @if($order->status=='new')
                           <span class="badge badge-primary">{{$order->status}}</span>

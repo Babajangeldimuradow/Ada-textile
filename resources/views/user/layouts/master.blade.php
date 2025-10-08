@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+<link rel="shortcut icon" href="{{ asset('images/123.png') }}" type="image/x-icon">
 
 @include('user.layouts.head')
 

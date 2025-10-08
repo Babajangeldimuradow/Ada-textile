@@ -50,8 +50,8 @@ class BannerController extends Controller
         $banner = Banner::create($validatedData);
 
         $message = $banner
-            ? 'Banner successfully added'
-            : 'Error occurred while adding banner';
+            ? 'Banner üstünlikli goşuldy'
+            : 'Banner goşanda säwlik ýüze çykdy';
 
         return redirect()->route('banner.index')->with(
             $banner ? 'success' : 'error',
@@ -103,8 +103,8 @@ class BannerController extends Controller
         $status = $banner->update($validatedData);
 
         $message = $status
-            ? 'Banner successfully updated'
-            : 'Error occurred while updating banner';
+            ? 'Banner üstünlikli täzelendi'
+            : 'Banner täzelenende säwlik ýüze çykdy';
 
         return redirect()->route('banner.index')->with(
             $status ? 'success' : 'error',
@@ -124,8 +124,8 @@ class BannerController extends Controller
         $status = $banner->delete();
 
         $message = $status
-            ? 'Banner successfully deleted'
-            : 'Error occurred while deleting banner';
+            ? 'Banner üstünlikli öçürildi'
+            : 'Banner öçürilende säwlik ýüze çykdy';
 
         return redirect()->route('banner.index')->with(
             $status ? 'success' : 'error',

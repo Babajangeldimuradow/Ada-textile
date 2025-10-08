@@ -3,13 +3,13 @@
 @section('main-content')
 
 <div class="card">
-    <h5 class="card-header">Edit Coupon</h5>
+    <h5 class="card-header">Talon üýtgetmek</h5>
     <div class="card-body">
       <form method="post" action="{{route('coupon.update',$coupon->id)}}">
         @csrf 
         @method('PATCH')
         <div class="form-group">
-          <label for="inputTitle" class="col-form-label">Coupon Code <span class="text-danger">*</span></label>
+          <label for="inputTitle" class="col-form-label">Talon kody <span class="text-danger">*</span></label>
           <input id="inputTitle" type="text" name="code" placeholder="Enter Coupon Code"  value="{{$coupon->code}}" class="form-control">
           @error('code')
           <span class="text-danger">{{$message}}</span>
@@ -17,7 +17,7 @@
           </div>
   
           <div class="form-group">
-              <label for="type" class="col-form-label">Type <span class="text-danger">*</span></label>
+              <label for="type" class="col-form-label">Görnüşi <span class="text-danger">*</span></label>
               <select name="type" class="form-control">
                   <option value="fixed" {{(($coupon->type=='fixed') ? 'selected' : '')}}>Fixed</option>
                   <option value="percent" {{(($coupon->type=='percent') ? 'selected' : '')}}>Percent</option>

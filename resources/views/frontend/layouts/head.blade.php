@@ -3,7 +3,10 @@
 <!-- Title Tag  -->
 <title>@yield('title')</title>
 <!-- Favicon -->
-<link rel="icon" type="image/png" href="{{ asset('images/123.png') }}">
+<!-- Favicon -->
+<link rel="shortcut icon" href="{{ asset('images/123.png') }}" type="image/x-icon">
+
+
 
 
 

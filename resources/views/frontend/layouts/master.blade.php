@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="zxx">
 <head>
+	
 	@include('frontend.layouts.head')	
 </head>
 <body class="js">

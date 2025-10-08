@@ -1,10 +1,10 @@
 @extends('user.layouts.master')
 
-@section('title','Order Detail')
+@section('title','Sargytlar bölümi')
 
 @section('main-content')
 <div class="card">
-<h5 class="card-header">Order       <a href="{{route('order.pdf',$order->id)}}" class=" btn btn-sm btn-primary shadow-sm float-right"><i class="fas fa-download fa-sm text-white-50"></i> Generate PDF</a>
+<h5 class="card-header">Sargytlar  
   </h5>
   <div class="card-body">
     @if($order)
@@ -16,7 +16,7 @@
 <th>Ady</th>
 <th>E-poçta</th>
 <th>Mukdar</th>
-<th>Birligi</th>
+<th>PUl Birligi</th>
 <th>Jemi</th>
 <th>Ýagdaýy</th>
         </tr>
@@ -28,7 +28,7 @@
             <td>{{$order->first_name}} {{$order->last_name}}</td>
             <td>{{$order->email}}</td>
             <td>{{$order->quantity}}</td>
-            <td>{{ $order->shipping->price ?? '—' }} TMT</td> 
+            <td>{{ $order->shipping->price ?? '' }} TMT</td> 
             <td>{{number_format($order->total_amount,2)}}TMT</td>
             <td>
                 @if($order->status=='new')
@@ -80,12 +80,14 @@
                       @php
                           $shipping_charge=DB::table('shippings')->where('id',$order->shipping_id)->pluck('price');
                       @endphp
-                        <td>Eltip bermek üçin töleg</td>
-                        <td> :${{$order->shipping->price}}</td>
+<td>Eltip bermek üçin töleg</td>
+<td> :{{ $order->shipping ? $order->shipping->price : '20.00' }} TMT</td>
+
+
                     </tr>
                     <tr>
                         <td>Jemi mukdar</td>
-                        <td> : $ {{number_format($order->total_amount,2)}}</td>
+                        <td> :  {{number_format($order->total_amount,2)}}TMT</td>
                     </tr>
                     <tr>
                       <td>Töleg usuly</td>

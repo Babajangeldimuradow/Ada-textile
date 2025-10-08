@@ -50,8 +50,8 @@ class BrandController extends Controller
         $brand = Brand::create($validatedData);
 
         $message = $brand
-            ? 'Brand successfully created'
-            : 'Error, Please try again';
+            ? 'Marka üstünlikli döredildi'
+            : 'Ýalňyşlyk, gaýtadan synanyşmagyňyzy haýyş edýäris';
 
         return redirect()->route('brand.index')->with(
             $brand ? 'success' : 'error',
