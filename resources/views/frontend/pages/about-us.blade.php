@@ -43,7 +43,7 @@
 							{{-- <div class="button">
 								<a href="https://www.youtube.com/watch?v=nh2aYrGMrIE" class="video video-popup mfp-iframe"><i class="fa fa-play"></i></a>
 							</div> --}}
-							<img src="{{ asset('storage/photos/1/logo.png') }}" alt="ADA logo">
+							<img src="{{ asset('storage/photos/1/logo1.jpg	') }}" alt="ADA logo">
 
 
 						</div>

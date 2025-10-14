@@ -3,31 +3,32 @@
 @section('main-content')
 
 <div class="card">
-    <h5 class="card-header">Edit Category</h5>
+    <h5 class="card-header">Kategoriýany üýtgetmek</h5>
     <div class="card-body">
       <form method="post" action="{{route('category.update',$category->id)}}">
         @csrf 
         @method('PATCH')
         <div class="form-group">
-          <label for="inputTitle" class="col-form-label">Title <span class="text-danger">*</span></label>
-          <input id="inputTitle" type="text" name="title" placeholder="Enter title"  value="{{$category->title}}" class="form-control">
+          <label for="inputTitle" class="col-form-label">Ady <span class="text-danger">*</span></label>
+          <input id="inputTitle" type="text" name="title" placeholder="Adyny giriz"  value="{{$category->title}}" class="form-control">
           @error('title')
           <span class="text-danger">{{$message}}</span>
           @enderror
         </div>
 
         <div class="form-group">
-          <label for="summary" class="col-form-label">Summary</label>
+          <label for="summary" class="col-form-label">Gysgaça mazmuny</label>
           <textarea class="form-control" id="summary" name="summary">{{$category->summary}}</textarea>
           @error('summary')
           <span class="text-danger">{{$message}}</span>
           @enderror
         </div>
 
-        <div class="form-group">
-          <label for="is_parent">Is Parent</label><br>
-          <input type="checkbox" name='is_parent' id='is_parent' value='{{$category->is_parent}}' {{(($category->is_parent==1)? 'checked' : '')}}> Yes                        
-        </div>
+     <div class="form-group">
+    <label for="is_parent">Esasy kategoriýamy</label><br>
+    <input type="checkbox" name="is_parent" id="is_parent" value="{{$category->is_parent}}" {{(($category->is_parent==1)? 'checked' : '')}}> Hawa
+</div>
+
         {{-- {{$parent_cats}} --}}
         {{-- {{$category}} --}}
 
@@ -43,11 +44,11 @@
         </div>
 
         <div class="form-group">
-          <label for="inputPhoto" class="col-form-label">Photo</label>
+          <label for="inputPhoto" class="col-form-label">Surat</label>
           <div class="input-group">
               <span class="input-group-btn">
                   <a id="lfm" data-input="thumbnail" data-preview="holder" class="btn btn-primary">
-                  <i class="fa fa-picture-o"></i> Choose
+                  <i class="fa fa-picture-o"></i> Saýla
                   </a>
               </span>
           <input id="thumbnail" class="form-control" type="text" name="photo" value="{{$category->photo}}">
@@ -59,17 +60,17 @@
         </div>
         
         <div class="form-group">
-          <label for="status" class="col-form-label">Status <span class="text-danger">*</span></label>
+          <label for="status" class="col-form-label">Ýagdaýy <span class="text-danger">*</span></label>
           <select name="status" class="form-control">
-              <option value="active" {{(($category->status=='active')? 'selected' : '')}}>Active</option>
-              <option value="inactive" {{(($category->status=='inactive')? 'selected' : '')}}>Inactive</option>
+              <option value="active" {{(($category->status=='active')? 'selected' : '')}}>Işjeň</option>
+              <option value="inactive" {{(($category->status=='inactive')? 'selected' : '')}}>Işjeň däl</option>
           </select>
           @error('status')
           <span class="text-danger">{{$message}}</span>
           @enderror
         </div>
         <div class="form-group mb-3">
-           <button class="btn btn-success" type="submit">Update</button>
+           <button class="btn btn-success" type="submit">Täzele</button>
         </div>
       </form>
     </div>

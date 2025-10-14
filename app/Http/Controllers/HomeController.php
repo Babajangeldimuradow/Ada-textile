@@ -223,7 +223,7 @@ class HomeController extends Controller
    
         User::find(auth()->user()->id)->update(['password'=> Hash::make($request->new_password)]);
    
-        return redirect()->route('user')->with('success','Password successfully changed');
+        return redirect()->route('user')->with('success','Parolyňyz üstsünlikli çalşyryldy!');
     }
 
     

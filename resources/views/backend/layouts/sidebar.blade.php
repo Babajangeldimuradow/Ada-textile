@@ -145,11 +145,11 @@
     <li class="nav-item">
       <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#postCollapse" aria-expanded="true" aria-controls="postCollapse">
         <i class="fas fa-fw fa-folder"></i>
-        <span>Postlar üçin</span>
+        <span>Reklama üçin</span>
       </a>
       <div id="postCollapse" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
         <div class="bg-white py-2 collapse-inner rounded">
-          <h6 class="collapse-header">Post Görnüşler::</h6>
+          <h6 class="collapse-header">Post Görnüşler:</h6>
           <a class="collapse-item" href="{{route('post.index')}}">Postlar</a>
           <a class="collapse-item" href="{{route('post.create')}}">Post goşmak</a>
         </div>

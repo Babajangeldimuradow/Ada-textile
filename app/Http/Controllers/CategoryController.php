@@ -111,8 +111,8 @@ class CategoryController extends Controller
         $status = $category->update($validatedData);
 
         $message = $status
-            ? 'Category successfully updated'
-            : 'Error occurred, Please try again!';
+            ? 'Kategoriýa üstünlikli täzelendi'
+            : 'Ýalňyşlyk ýüze çykdy, gaýtadan synanyşyň!';
 
         return redirect()->route('category.index')->with(
             $status ? 'success' : 'error',
@@ -138,8 +138,8 @@ class CategoryController extends Controller
         }
 
         $message = $status
-            ? 'Category successfully deleted'
-            : 'Error while deleting category';
+            ? 'Kategoriýa üstünlikli öçürildi'
+            : 'Kategoriýany pozanyňyzda säwlik ýüze çykdy';
 
         return redirect()->route('category.index')->with(
             $status ? 'success' : 'error',

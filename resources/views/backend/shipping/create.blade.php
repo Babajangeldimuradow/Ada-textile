@@ -3,12 +3,12 @@
 @section('main-content')
 
 <div class="card">
-    <h5 class="card-header">Sargyt goşuň</h5>
+    <h5 class="card-header">Sargyt tölegi</h5>
     <div class="card-body">
       <form method="post" action="{{route('shipping.store')}}">
         {{csrf_field()}}
         <div class="form-group">
-          <label for="inputTitle" class="col-form-label">Görnüşi <span class="text-danger">*</span></label>
+          <label for="inputTitle" class="col-form-label">Ýerleşýän ýeri <span class="text-danger">*</span></label>
         <input id="inputTitle" type="text" name="type" placeholder="Salgyny giriziň"  value="{{old('type')}}" class="form-control">
         @error('type')
         <span class="text-danger">{{$message}}</span>

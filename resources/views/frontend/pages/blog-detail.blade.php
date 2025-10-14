@@ -1,6 +1,6 @@
 @extends('frontend.layouts.master')
 
-@section('title','ADA || Blog Detail page')
+@section('title','ADA || Mahabat bölümi ')
 
 @section('main-content')
     <!-- Breadcrumbs -->
@@ -10,8 +10,8 @@
                 <div class="col-12">
                     <div class="bread-inner">
                         <ul class="bread-list">
-                            <li><a href="{{route('home')}}">Home<i class="ti-arrow-right"></i></a></li>
-                            <li class="active"><a href="javascript:void(0);">Blog Single Sidebar</a></li>
+                            <li><a href="{{route('home')}}">BAŞ SAHYPASY<i class="ti-arrow-right"></i></a></li>
+                            <li class="active"><a href="javascript:void(0);">MAHABAT BÖLÜMI</a></li>
                         </ul>
                     </div>
                 </div>
@@ -34,7 +34,7 @@
                                 <div class="blog-detail">
                                     <h2 class="blog-title">{{$post->title}}</h2>
                                     <div class="blog-meta">
-                                        <span class="author"><a href="javascript:void(0);"><i class="fa fa-user"></i>By {{$post->author_info['name']}}</a><a href="javascript:void(0);"><i class="fa fa-calendar"></i>{{$post->created_at->format('M d, Y')}}</a><a href="javascript:void(0);"><i class="fa fa-comments"></i>Comment ({{$post->allComments->count()}})</a></span>
+                                        <span class="author"><a href="javascript:void(0);"><i class="fa fa-user"></i>Awtory: {{$post->author_info['name']}}</a><a href="javascript:void(0);"><i class="fa fa-calendar"></i>{{$post->created_at->format('M d, Y')}}</a><a href="javascript:void(0);"><i class="fa fa-comments"></i>Teswir ({{$post->allComments->count()}})</a></span>
                                     </div>
                                     <div class="sharethis-inline-reaction-buttons"></div>
                                     <div class="content">
@@ -48,13 +48,13 @@
                                     <div class="row">
                                         <div class="col-12">
                                             <div class="content-tags">
-                                                <h4>Tags:</h4>
+                                                <h4>Bellikleri giriziň:</h4>
                                                 <ul class="tag-inner">
                                                     @php
                                                         $tags=explode(',',$post->tags);
                                                     @endphp
                                                     @foreach($tags as $tag)
-                                                    <li><a href="javascript:void(0);">{{$tag}}</a></li>
+                                                 <!--  <li><a href="javascript:void(0);">{{$tag}}</a></li> -->
                                                     @endforeach
                                                 </ul>
                                             </div>
@@ -66,26 +66,26 @@
                             <div class="col-12 mt-4">
                                 <div class="reply">
                                     <div class="reply-head comment-form" id="commentFormContainer">
-                                        <h2 class="reply-title">Leave a Comment</h2>
+                                        <h2 class="reply-title">Teswir ýazyň:</h2>
                                         <!-- Comment Form -->
                                         <form class="form comment_form" id="commentForm" action="{{route('post-comment.store',$post->slug)}}" method="POST">
                                             @csrf
                                             <div class="row">
                                                 {{-- <div class="col-lg-6 col-md-6 col-12">
                                                     <div class="form-group">
-                                                        <label>Your Name<span>*</span></label>
+                                                        <label>Adyňyz<span>*</span></label>
                                                         <input type="text" name="name" placeholder="" required="required">
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-6 col-md-6 col-12">
                                                     <div class="form-group">
-                                                        <label>Your Email<span>*</span></label>
+                                                        <label>E-poçtaňyz<span>*</span></label>
                                                         <input type="email" name="email" placeholder="" required="required">
                                                     </div>
                                                 </div> --}}
                                                 <div class="col-12">
                                                     <div class="form-group  comment_form_body">
-                                                        <label>Your Message<span>*</span></label>
+                                                        <label>Habar<span>*</span></label>
                                                         <textarea name="comment" id="comment" rows="10" placeholder=""></textarea>
                                                         <input type="hidden" name="post_id" value="{{ $post->id }}" />
                                                         <input type="hidden" name="parent_id" id="parent_id" value="" />
@@ -93,7 +93,7 @@
                                                 </div>
                                                 <div class="col-12">
                                                     <div class="form-group button">
-                                                        <button type="submit" class="btn"><span class="comment_btn comment">Post Comment</span><span class="comment_btn reply" style="display: none;">Reply Comment</span></button>
+                                                        <button type="submit" class="btn"><span class="comment_btn comment">Teswir ugrat</span><span class="comment_btn reply" style="display: none;">Düşündirişi</span></button>
                                                     </div>
                                                 </div>
                                             </div>
@@ -105,7 +105,7 @@
 
                             @else
                             <p class="text-center p-5">
-                                You need to <a href="{{route('login.form')}}" style="color:rgb(54, 54, 204)">Login</a> OR <a style="color:blue" href="{{route('register.form')}}">Register</a> for comment.
+                                Bellik üçin <a href="{{route('login.form')}}" style="color:rgb(54, 54, 204)">Login</a> ýa-da <a style="color:blue" href="{{route('register.form')}}">Registrasiýa </a> etmegiňiz zerur.
 
                             </p>
 
@@ -114,7 +114,7 @@
                             @endauth
                             <div class="col-12">
                                 <div class="comments">
-                                    <h3 class="comment-title">Comments ({{$post->allComments->count()}})</h3>
+                                    <h3 class="comment-title">Teswirler ({{$post->allComments->count()}})</h3>
                                     <!-- Single Comment -->
                                     @include('frontend.pages.comment', ['comments' => $post->comments, 'post_id' => $post->id, 'depth' => 3])
                                     <!-- End Single Comment -->
@@ -128,14 +128,14 @@
                         <!-- Single Widget -->
                         <div class="single-widget search">
                             <form class="form" method="GET" action="{{route('blog.search')}}">
-                                <input type="text" placeholder="Search Here..." name="search">
+                                <input type="text" placeholder="Gözleg..." name="search">
                                 <button class="button" type="sumbit"><i class="fa fa-search"></i></button>
                             </form>
                         </div>
                         <!--/ End Single Widget -->
                         <!-- Single Widget -->
                         <div class="single-widget category">
-                            <h3 class="title">Blog Categories</h3>
+                            <h3 class="title">Blog kategoriýalary</h3>
                             <ul class="categor-list">
                                 {{-- {{count(Helper::postCategoryList())}} --}}
                                 @foreach(Helper::postCategoryList('posts') as $cat)
@@ -146,7 +146,7 @@
                         <!--/ End Single Widget -->
                         <!-- Single Widget -->
                         <div class="single-widget recent-post">
-                            <h3 class="title">Recent post</h3>
+                            <h3 class="title">Soňky post</h3>
                             @foreach($recent_posts as $post)
                                 <!-- Single Post -->
                                 <div class="single-post">
@@ -171,7 +171,7 @@
                         <!--/ End Single Widget -->
                         <!-- Single Widget -->
                         <div class="single-widget side-tags">
-                            <h3 class="title">Tags</h3>
+                            <h3 class="title">Bellikler:</h3>
                             <ul class="tag">
                                 @foreach(Helper::postTagList('posts') as $tag)
                                     <li><a href="">{{$tag->title}}</a></li>
@@ -181,14 +181,14 @@
                         <!--/ End Single Widget -->
                         <!-- Single Widget -->
                         <div class="single-widget newsletter">
-                            <h3 class="title">Newslatter</h3>
+                            <h3 class="title">Täze habarlar</h3>
                             <div class="letter-inner">
-                                <h4>Subscribe & get news <br> latest updates.</h4>
+                               <h4 style="text-transform: uppercase;">Abuna boluň we iň soňky habarlardan habarly boluň.</h4>
                                 <form action="{{route('subscribe')}}" method="POST">
                                     @csrf
                                     <div class="form-inner">
-                                        <input type="email" name="email" placeholder="Enter your email">
-                                        <button type="submit" class="btn mt-2">Submit</button>
+                                        <input type="email" name="email" placeholder="Emailyňyz giriziň">
+                                        <button type="submit" class="btn mt-2">Ugrat</button>
                                     </div>
                                 </form>
                             </div>

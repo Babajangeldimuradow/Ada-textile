@@ -79,7 +79,7 @@
 										<td></td>
 										<td></td>
 										<td class="float-right">
-											<button class="btn float-right" type="submit">Täzeläň</button>
+											<button class="btn float-right" type="submit">Umumy bahany täzele</button>
 										</td>
 									</track>
 								@else
@@ -136,7 +136,7 @@
 										@if(session()->has('coupon'))
 											<li class="last" id="order_total_price">Siziň tölegiňiz<span>{{number_format($total_amount,2)}}TMT</span></li>
 										@else
-											<li class="last" id="order_total_price">Siziň tölegiňiz<span>${{number_format($total_amount,2)}}TMT</span></li>
+											<li class="last" id="order_total_price">Siziň tölegiňiz<span>{{number_format($total_amount,2)}}TMT</span></li>
 										@endif
 									</ul>
 									<div class="button5">

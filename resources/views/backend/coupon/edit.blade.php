@@ -16,37 +16,39 @@
           @enderror
           </div>
   
-          <div class="form-group">
-              <label for="type" class="col-form-label">Görnüşi <span class="text-danger">*</span></label>
-              <select name="type" class="form-control">
-                  <option value="fixed" {{(($coupon->type=='fixed') ? 'selected' : '')}}>Fixed</option>
-                  <option value="percent" {{(($coupon->type=='percent') ? 'selected' : '')}}>Percent</option>
-              </select>
-              @error('type')
-              <span class="text-danger">{{$message}}</span>
-              @enderror
-          </div>
+         <div class="form-group">
+    <label for="type" class="col-form-label">Görnüşi <span class="text-danger">*</span></label>
+    <select name="type" class="form-control">
+        <option value="fixed" {{(($coupon->type=='fixed') ? 'selected' : '')}}>Durnukly</option>
+        <option value="percent" {{(($coupon->type=='percent') ? 'selected' : '')}}>Göterim</option>
+    </select>
+    @error('type')
+    <span class="text-danger">{{$message}}</span>
+    @enderror
+</div>
+
   
-          <div class="form-group">
-              <label for="inputTitle" class="col-form-label">Value <span class="text-danger">*</span></label>
-              <input id="inputTitle" type="number" name="value" placeholder="Enter Coupon value"  value="{{$coupon->value}}" class="form-control">
-              @error('value')
-              <span class="text-danger">{{$message}}</span>
-              @enderror
-          </div>
+   <div class="form-group">
+    <label for="inputTitle" class="col-form-label">Bahasy <span class="text-danger">*</span></label>
+    <input id="inputTitle" type="number" name="value" placeholder="Kuponuň bahasyny giriz" value="{{$coupon->value}}" class="form-control">
+    @error('value')
+    <span class="text-danger">{{$message}}</span>
+    @enderror
+</div>
+
           
         <div class="form-group">
-          <label for="status" class="col-form-label">Status <span class="text-danger">*</span></label>
+          <label for="status" class="col-form-label">Ýagdaýy <span class="text-danger">*</span></label>
           <select name="status" class="form-control">
-            <option value="active" {{(($coupon->status=='active') ? 'selected' : '')}}>Active</option>
-            <option value="inactive" {{(($coupon->status=='inactive') ? 'selected' : '')}}>Inactive</option>
+            <option value="active" {{(($coupon->status=='active') ? 'selected' : '')}}>Işjeň</option>
+            <option value="inactive" {{(($coupon->status=='inactive') ? 'selected' : '')}}>Işjeň däl</option>
           </select>
           @error('status')
           <span class="text-danger">{{$message}}</span>
           @enderror
         </div>
         <div class="form-group mb-3">
-           <button class="btn btn-success" type="submit">Update</button>
+           <button class="btn btn-success" type="submit">Täzele</button>
         </div>
       </form>
     </div>
@@ -65,7 +67,7 @@
 
     $(document).ready(function() {
     $('#description').summernote({
-      placeholder: "Write short description.....",
+      placeholder: "Gysgaça beýan ýaz.....",
         tabsize: 2,
         height: 150
     });

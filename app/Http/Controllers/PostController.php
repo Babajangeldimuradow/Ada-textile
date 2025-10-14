@@ -147,7 +147,7 @@ class PostController extends Controller
 
         $status=$post->fill($data)->save();
         if($status){
-            request()->session()->flash('success','Post üstünlikli pozuldy');
+            request()->session()->flash('success','Post üstünlikli täzelendi');
         }
         else{
             request()->session()->flash('error','Gaýtadan synanyşyň!');

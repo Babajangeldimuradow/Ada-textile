@@ -43,8 +43,8 @@
         <div class="form-group">
           <label for="status" class="col-form-label">Ýagdaýy <span class="text-danger">*</span></label>
           <select name="status" class="form-control">
-            <option value="active" {{(($banner->status=='active') ? 'selected' : '')}}>Active</option>
-            <option value="inactive" {{(($banner->status=='inactive') ? 'selected' : '')}}>Inactive</option>
+            <option value="active" {{(($banner->status=='active') ? 'selected' : '')}}>Işjeň</option>
+            <option value="inactive" {{(($banner->status=='inactive') ? 'selected' : '')}}>Işjeň däl</option>
           </select>
           @error('status')
           <span class="text-danger">{{$message}}</span>

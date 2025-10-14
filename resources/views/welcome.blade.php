@@ -68,12 +68,12 @@
             @if (Route::has('login'))
                 <div class="top-right links">
                     @auth
-                        <a href="{{ url('/home') }}">Home</a>
+                        <a href="{{ url('/home') }}">Baş sahypa</a>
                     @else
                         <a href="{{ route('login') }}">Login</a>
 
                         @if (Route::has('register'))
-                            <a href="{{ route('register') }}">Register</a>
+                            <a href="{{ route('register') }}">Registrasiýa</a>
                         @endif
                     @endauth
                 </div>
@@ -119,9 +119,9 @@
   </script>
 </head>
 <body>
-  <h1>Pusher Test</h1>
+  <h1>Pusher Synagy</h1>
   <p>
-    Try publishing an event to channel <code>my-channel</code>
-    with event name <code>my-event</code>.
+    <code>my-channel</code> atly kanala
+<code>my-event</code> atly bir wakany iberip synap görüň.
   </p>
 </body>

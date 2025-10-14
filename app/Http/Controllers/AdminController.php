@@ -40,10 +40,10 @@ class AdminController extends Controller
         $data=$request->all();
         $status=$user->fill($data)->save();
         if($status){
-            request()->session()->flash('success','Successfully updated your profile');
+            request()->session()->flash('success','Profiliňizi üstünlikli täzeledi');
         }
         else{
-            request()->session()->flash('error','Please try again!');
+            request()->session()->flash('error','Gaýtadan synanyşyň!');
         }
         return redirect()->back();
     }
@@ -70,10 +70,10 @@ class AdminController extends Controller
         // return $settings;
         $status=$settings->fill($data)->save();
         if($status){
-            request()->session()->flash('success','Setting successfully updated');
+            request()->session()->flash('success','Sazlamalar üstünlikli täzelendi.');
         }
         else{
-            request()->session()->flash('error','Please try again');
+            request()->session()->flash('error','Gaýtadan synanyşyň.');
         }
         return redirect()->route('admin');
     }
@@ -91,7 +91,7 @@ class AdminController extends Controller
 
         User::find(auth()->user()->id)->update(['password'=> Hash::make($request->new_password)]);
 
-        return redirect()->route('admin')->with('success','Password successfully changed');
+        return redirect()->route('admin')->with('success','Parol üstünlikli üýtgedildi !');
     }
 
     // Pie chart
@@ -126,7 +126,7 @@ class AdminController extends Controller
             //Regenerate the storage link folder
             try{
                 Artisan::call('storage:link');
-                request()->session()->flash('success', 'Successfully storage linked.');
+                request()->session()->flash('success', 'Saklaýyş baglanyşygy üstünlikli döredildi.');
                 return redirect()->back();
             }
             catch(\Exception $exception){
@@ -137,7 +137,7 @@ class AdminController extends Controller
         else{
             try{
                 Artisan::call('storage:link');
-                request()->session()->flash('success', 'Successfully storage linked.');
+                request()->session()->flash('success', 'Saklaýyş faýllary üstünlikli baglanyşdy.');
                 return redirect()->back();
             }
             catch(\Exception $exception){

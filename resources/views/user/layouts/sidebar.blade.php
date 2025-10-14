@@ -37,7 +37,7 @@
     <li class="nav-item">
         <a class="nav-link" href="{{route('user.productreview.index')}}">
             <i class="fas fa-comments"></i>
-            <span>Teswirler</span></a>
+            <span>Synlar</span></a>
     </li>
     
 
