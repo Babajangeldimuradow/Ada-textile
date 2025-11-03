@@ -63,7 +63,8 @@
                 <tr>
                     <td>{{$product->id}}</td>
                     <td>{{$product->title}}</td>
-                    <td>{{$product->cat_info['title']}}
+                    <td>{{ $product->cat_info->title ?? 'Kategoriýa ýok' }}</td>
+
                       <sub>
                           {{$product->sub_cat_info->title ?? ''}}
                       </sub>

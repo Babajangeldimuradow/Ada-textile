@@ -163,7 +163,7 @@
                                         <div class="checkbox">
                                             {{-- <label class="checkbox-inline" for="1"><input name="updates" id="1" type="checkbox"> Tölegleri barlaň</label> --}}
                                             <form-group>
-                                                <input name="payment_method"  type="radio" value="cod"> <label> Eltip bermek üçin nagt</label><br>
+                                                <input name="payment_method"  type="radio" value="cod"> <label> Nagt</label><br>
                                                 <input name="payment_method"  type="radio" value="paypal"> <label> Kart arkaly</label> 
                                             </form-group>
                                             

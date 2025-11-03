@@ -104,7 +104,7 @@
     $('#lfm1').filemanager('image');
     $(document).ready(function() {
     $('#summary').summernote({
-      placeholder: "Write short description.....",
+      placeholder: "Gysgaça beýany ýazyň.....",
         tabsize: 2,
         height: 150
     });

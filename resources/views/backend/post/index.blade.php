@@ -54,7 +54,8 @@
                 <tr>
                     <td>{{$post->id}}</td>
                     <td>{{$post->title}}</td>
-                    <td>{{$post->cat_info->title}}</td>
+                  <td>{{ $post->cat_info->title ?? 'Kategoriýa ýok' }}</td>
+
                     <td>{{$post->tags}}</td>
 
                     <td>
