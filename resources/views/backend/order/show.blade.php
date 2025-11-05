@@ -84,7 +84,7 @@
 
                     </tr>
                     <tr>
-                      <td>Talon</td>
+                      <td>Talon:</td>
                       <td> :  {{number_format($order->coupon,2)}}TMT</td>
                     </tr>
                     <tr>
@@ -127,15 +127,15 @@
                         <td> : {{$order->phone}}</td>
                     </tr>
                     <tr>
-                        <td>Address</td>
+                        <td>Salgysy:</td>
                         <td> : {{$order->address1}}, {{$order->address2}}</td>
                     </tr>
                     <tr>
-                        <td>Country</td>
+                        <td>Welaýat:</td>
                         <td> : {{$order->country}}</td>
                     </tr>
                     <tr>
-                        <td>Post Code</td>
+                        <td>Sargydyn kody:</td>
                         <td> : {{$order->post_code}}</td>
                     </tr>
               </table>

@@ -120,11 +120,11 @@
                         <td> : {{$order->address1}}, {{$order->address2}}</td>
                     </tr>
                     <tr>
-                        <td>Country</td>
+                        <td>Welaýat belgiňiz:</td>
                         <td> : {{$order->country}}</td>
                     </tr>
                     <tr>
-                        <td>Post Code</td>
+                        <td>Sargydyn kody:</td>
                         <td> : {{$order->post_code}}</td>
                     </tr>
               </table>
