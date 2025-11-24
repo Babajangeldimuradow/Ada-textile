@@ -157,19 +157,22 @@
                                 </div>
                                 <!--/ End Order Widget -->
                                 <!-- Order Widget -->
-                                <div class="single-widget">
-                                    <h2>Tölegler</h2>
-                                    <div class="content">
-                                        <div class="checkbox">
-                                            {{-- <label class="checkbox-inline" for="1"><input name="updates" id="1" type="checkbox"> Tölegleri barlaň</label> --}}
-                                            <form-group>
-                                                <input name="payment_method"  type="radio" value="cod"> <label> Nagt</label><br>
-                                                <input name="payment_method"  type="radio" value="paypal"> <label> Kart arkaly</label> 
-                                            </form-group>
-                                            
-                                        </div>
-                                    </div>
-                                </div>
+                               <div class="single-widget">
+    <h2>Tölegler</h2>
+    <div class="content">
+        <div class="checkbox">
+            <form-group>
+                <input name="payment_method" type="radio" value="cod" checked>
+                <label>Nagt</label><br>
+
+                <input id="payCardOption" name="payment_method" type="radio" value="paypal">
+
+                <label>Kart arkaly</label>
+            </form-group>
+        </div>
+    </div>
+</div>
+
                                 <!--/ End Order Widget -->
 
                                 <!--/ End Payment Method Widget -->
@@ -303,9 +306,26 @@
 	</style>
 @endpush
 @push('scripts')
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 	<script src="{{asset('frontend/js/nice-select/js/jquery.nice-select.min.js')}}"></script>
 	<script src="{{ asset('frontend/js/select2/js/select2.min.js') }}"></script>
 	<script>
+document.addEventListener("DOMContentLoaded", function () {
+
+    document.getElementById('payCardOption').addEventListener('change', function() {
+        Swal.fire({
+            title: "Bu hyzmat taýýar däl!",
+            text: "Kart arkaly töleg häzirki wagtda elýeterli däl.",
+            icon: "info",
+            confirmButtonText: "OK"
+        });
+
+        document.querySelector('input[value="cod"]').checked = true;
+    });
+
+});
+
+
 		$(document).ready(function() { $("select.select2").select2(); });
   		$('select.nice-select').niceSelect();
 	</script>
