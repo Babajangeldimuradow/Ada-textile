@@ -317,7 +317,7 @@ document.addEventListener("DOMContentLoaded", function () {
             title: "Bu hyzmat taýýar däl!",
             text: "Kart arkaly töleg häzirki wagtda elýeterli däl.",
             icon: "info",
-            confirmButtonText: "OK"
+            confirmButtonText: "Çykmak"
         });
 
         document.querySelector('input[value="cod"]').checked = true;
