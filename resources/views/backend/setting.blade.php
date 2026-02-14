@@ -5,87 +5,162 @@
 <div class="card">
     <h5 class="card-header">Umumy sazlamalar</h5>
     <div class="card-body">
-    <form method="post" action="{{route('settings.update')}}">
-        @csrf 
-        {{-- @method('PATCH') --}}
-        {{-- {{dd($data)}} --}}
+
+    <form method="POST" action="{{ route('settings.update') }}">
+        @csrf
+        @method('PATCH')
+
+        {{-- SHORT DESCRIPTION --}}
         <div class="form-group">
-          <label for="short_des" class="col-form-label">Gysgaça beýany <span class="text-danger">*</span></label>
-          <textarea class="form-control" id="quote" name="short_des">{{$data->short_des}}</textarea>
-          @error('short_des')
-          <span class="text-danger">{{$message}}</span>
-          @enderror
-        </div>
-        <div class="form-group">
-          <label for="description" class="col-form-label">Düşündirilişi <span class="text-danger">*</span></label>
-          <textarea class="form-control" id="description" name="description">{{$data->description}}</textarea>
-          @error('description')
-          <span class="text-danger">{{$message}}</span>
-          @enderror
+            <label class="col-form-label">
+                Gysgaça beýany <span class="text-danger">*</span>
+            </label>
+
+            <textarea class="form-control"
+                      id="quote"
+                      name="short_des">{{ old('short_des', $data->short_des ?? '') }}</textarea>
+
+            @error('short_des')
+                <span class="text-danger">{{ $message }}</span>
+            @enderror
         </div>
 
+        {{-- DESCRIPTION --}}
         <div class="form-group">
-          <label for="inputPhoto" class="col-form-label">Logo <span class="text-danger">*</span></label>
-          <div class="input-group">
-              <span class="input-group-btn">
-                  <a id="lfm1" data-input="thumbnail1" data-preview="holder1" class="btn btn-primary">
-                  <i class="fa fa-picture-o"></i> Saýla
-                  </a>
-              </span>
-          <input id="thumbnail1" class="form-control" type="text" name="logo" value="{{$data->logo}}">
-        </div>
-        <div id="holder1" style="margin-top:15px;max-height:100px;"></div>
+            <label class="col-form-label">
+                Düşündirilişi <span class="text-danger">*</span>
+            </label>
 
-          @error('logo')
-          <span class="text-danger">{{$message}}</span>
-          @enderror
+            <textarea class="form-control"
+                      id="description"
+                      name="description">{{ old('description', $data->description ?? '') }}</textarea>
+
+            @error('description')
+                <span class="text-danger">{{ $message }}</span>
+            @enderror
         </div>
 
+        {{-- LOGO --}}
         <div class="form-group">
-          <label for="inputPhoto" class="col-form-label">Surat <span class="text-danger">*</span></label>
-          <div class="input-group">
-              <span class="input-group-btn">
-                  <a id="lfm" data-input="thumbnail" data-preview="holder" class="btn btn-primary">
-                  <i class="fa fa-picture-o"></i> Saýla
-                  </a>
-              </span>
-          <input id="thumbnail" class="form-control" type="text" name="photo" value="{{$data->photo}}">
-        </div>
-        <div id="holder" style="margin-top:15px;max-height:100px;"></div>
+            <label class="col-form-label">
+                Logo <span class="text-danger">*</span>
+            </label>
 
-          @error('photo')
-          <span class="text-danger">{{$message}}</span>
-          @enderror
+            <div class="input-group">
+                <span class="input-group-btn">
+                    <a id="lfm1"
+                       data-input="thumbnail1"
+                       data-preview="holder1"
+                       class="btn btn-primary">
+                        <i class="fa fa-picture-o"></i> Saýla
+                    </a>
+                </span>
+
+                <input id="thumbnail1"
+                       class="form-control"
+                       type="text"
+                       name="logo"
+                       value="{{ old('logo', $data->logo ?? '') }}">
+            </div>
+
+            <div id="holder1" style="margin-top:15px;max-height:100px;"></div>
+
+            @error('logo')
+                <span class="text-danger">{{ $message }}</span>
+            @enderror
         </div>
 
+        {{-- PHOTO --}}
         <div class="form-group">
-          <label for="address" class="col-form-label">Salgy <span class="text-danger">*</span></label>
-          <input type="text" class="form-control" name="address" required value="{{$data->address}}">
-          @error('address')
-          <span class="text-danger">{{$message}}</span>
-          @enderror
+            <label class="col-form-label">
+                Surat <span class="text-danger">*</span>
+            </label>
+
+            <div class="input-group">
+                <span class="input-group-btn">
+                    <a id="lfm"
+                       data-input="thumbnail"
+                       data-preview="holder"
+                       class="btn btn-primary">
+                        <i class="fa fa-picture-o"></i> Saýla
+                    </a>
+                </span>
+
+                <input id="thumbnail"
+                       class="form-control"
+                       type="text"
+                       name="photo"
+                       value="{{ old('photo', $data->photo ?? '') }}">
+            </div>
+
+            <div id="holder" style="margin-top:15px;max-height:100px;"></div>
+
+            @error('photo')
+                <span class="text-danger">{{ $message }}</span>
+            @enderror
         </div>
+
+        {{-- ADDRESS --}}
         <div class="form-group">
-          <label for="email" class="col-form-label">Poçta salgy <span class="text-danger">*</span></label>
-          <input type="email" class="form-control" name="email" required value="{{$data->email}}">
-          @error('email')
-          <span class="text-danger">{{$message}}</span>
-          @enderror
+            <label class="col-form-label">
+                Salgy <span class="text-danger">*</span>
+            </label>
+
+            <input type="text"
+                   class="form-control"
+                   name="address"
+                   value="{{ old('address', $data->address ?? '') }}"
+                   required>
+
+            @error('address')
+                <span class="text-danger">{{ $message }}</span>
+            @enderror
         </div>
+
+        {{-- EMAIL --}}
         <div class="form-group">
-          <label for="phone" class="col-form-label">Telefon belgi <span class="text-danger">*</span></label>
-          <input type="text" class="form-control" name="phone" required value="{{$data->phone}}">
-          @error('phone')
-          <span class="text-danger">{{$message}}</span>
-          @enderror
+            <label class="col-form-label">
+                Poçta salgy <span class="text-danger">*</span>
+            </label>
+
+            <input type="email"
+                   class="form-control"
+                   name="email"
+                   value="{{ old('email', $data->email ?? '') }}"
+                   required>
+
+            @error('email')
+                <span class="text-danger">{{ $message }}</span>
+            @enderror
+        </div>
+
+        {{-- PHONE --}}
+        <div class="form-group">
+            <label class="col-form-label">
+                Telefon belgi <span class="text-danger">*</span>
+            </label>
+
+            <input type="text"
+                   class="form-control"
+                   name="phone"
+                   value="{{ old('phone', $data->phone ?? '') }}"
+                   required>
+
+            @error('phone')
+                <span class="text-danger">{{ $message }}</span>
+            @enderror
         </div>
 
         <div class="form-group mb-3">
-           <button class="btn btn-success" type="submit">Täzele</button>
+            <button class="btn btn-success" type="submit">
+                Täzele
+            </button>
         </div>
-      </form>
+
+    </form>
     </div>
 </div>
+
 
 @endsection
 
@@ -112,14 +187,14 @@
 
     $(document).ready(function() {
       $('#quote').summernote({
-        placeholder: "Write short Quote.....",
+        placeholder: "Teswirleriňizi ýazyň.....",
           tabsize: 2,
           height: 100
       });
     });
     $(document).ready(function() {
       $('#description').summernote({
-        placeholder: "Write detail description.....",
+        placeholder: "Jikme-jik düşündiriş ýazyň.....",
           tabsize: 2,
           height: 150
       });

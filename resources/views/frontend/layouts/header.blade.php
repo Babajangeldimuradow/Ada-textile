@@ -55,7 +55,10 @@
     $settings = DB::table('settings')->first();
 @endphp                    
 <a href="{{route('home')}}">
+@if($settings && $settings->logo)
     <img src="{{ asset('storage/'.$settings->logo) }}" alt="logo">
+@endif
+
 </a>
 
                     </div>

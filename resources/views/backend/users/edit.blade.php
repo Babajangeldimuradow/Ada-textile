@@ -52,7 +52,7 @@
         // dd($roles);
         @endphp
         <div class="form-group">
-            <label for="role" class="col-form-label">Surat</label>
+            <label for="role" class="col-form-label">Roly</label>
             <select name="role" class="form-control">
                 <option value="">-----Roly saýla-----</option>
                 @foreach($roles as $role)
