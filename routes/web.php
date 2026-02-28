@@ -34,7 +34,7 @@
     // CACHE CLEAR ROUTE
     Route::get('cache-clear', function () {
         Artisan::call('optimize:clear');
-        request()->session()->flash('success', 'Successfully cache cleared.');
+        request()->session()->flash('success', 'Keş üstünlikli arassalandy.');
         return redirect()->back();
     })->name('cache.clear');
 
@@ -184,8 +184,10 @@ Route::post('user/register', [FrontendController::class, 'registerSubmit'])->nam
         // Coupon
         Route::resource('/coupon', 'CouponController');
         // Settings
-        Route::get('settings', [AdminController::class, 'settings'])->name('settings');
-        Route::post('setting/update', [AdminController::class, 'settingsUpdate'])->name('settings.update');
+     Route::group(['prefix' => '/admin', 'middleware' => ['auth', 'admin']], function () {
+    Route::get('settings', [AdminController::class, 'settings'])->name('settings'); // <-- GET route
+    Route::match(['post', 'patch'], 'setting/update', [AdminController::class, 'settingsUpdate'])->name('settings.update'); // <-- POST/PATCH
+});
 
         // Notification
         Route::get('/notification/{id}', [NotificationController::class, 'show'])->name('admin.notification');

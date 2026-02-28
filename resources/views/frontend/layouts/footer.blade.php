@@ -8,20 +8,17 @@
                 <div class="col-lg-5 col-md-6 col-12">
                     <div class="single-footer about">
                         <div class="logo">
-                            <a href="index.html"><img src="{{asset('backend/img/logo2.png')}}" alt="#"></a>
+                            <a href="{{ route('home') }}"><img src="{{ asset('backend/img/logo2.png') }}" alt="Logo"></a>
                         </div>
                         @php
-                            $settings = DB::table('settings')->get();
+                            $setting = DB::table('settings')->first();
                         @endphp
-                        <p class="text">
-                            @foreach($settings as $data) {{$data->short_des}} @endforeach
-                        </p>
-                        <p class="call">
-                            Siziň islegleriňiz – bizim baş maksadymyz! 24/7 elýeterli.
-                            <span><a href="tel:123456789">
-                                @foreach($settings as $data) {{$data->phone}} @endforeach
-                            </a></span>
-                        </p>
+                        @if($setting)
+                            <p class="text">{{ strip_tags($setting->short_des) }}</p>
+                            <p class="call">
+                                <span><a href="tel:{{ $setting->phone }}">{{ $setting->phone }}</a></span>
+                            </p>
+                        @endif
                     </div>
                 </div>
 
@@ -30,16 +27,13 @@
                     <div class="single-footer links">
                         <h4>Maglumat</h4>
                         <ul>
-                            <li><a href="{{route('about-us')}}">Biz barada</a></li>
-							<li><a href="#">Habarlar</a></li>
-							<li><a href="#">Töleg we eltip bermek</a></li>
-                            <li><a href="{{route('contact')}}">Habarlaşyň</a></li>
-                           
+                            <li><a href="{{ route('about-us') }}">Biz barada</a></li>
+                            <li><a href="#">Habarlar</a></li>
+                            <li><a href="#">Töleg we eltip bermek</a></li>
+                            <li><a href="{{ route('contact') }}">Habarlaşyň</a></li>
                         </ul>
                     </div>
                 </div>
-
-          
 
                 <!-- Aragatnaşyk / sosial -->
                 <div class="col-lg-3 col-md-6 col-12">
@@ -47,13 +41,16 @@
                         <h4>Habarlaşmak üçin</h4>
                         <div class="contact">
                             <ul>
-                                <li>@foreach($settings as $data) {{$data->address}} @endforeach</li>
-                                <li>@foreach($settings as $data) {{$data->email}} @endforeach</li>
-                                <li>@foreach($settings as $data) {{$data->phone}} @endforeach</li>
-								
+                                @if($setting)
+                                    <li>{{ strip_tags($setting->address) }}</li>
+                                    <li>{{ $setting->email }}</li>
+                                    <li>{{ $setting->phone }}</li>
+                                @endif
                             </ul>
-
+                        </div>
+                    </div>
                 </div>
+
             </div>
         </div>
     </div>
@@ -65,8 +62,8 @@
             <div class="inner">
                 <div class="row">
                     <div class="col-12 text-center">
-                        <p>Ähli hukuklar goralan {{date('Y')}} 
-                            <a href="https://github.com/Prajwal100" target="_blank">ADA</a> - söwda toplumy.
+                        <p>Ähli hukuklar goralan {{ date('Y') }} 
+                            <a href="https://github.com/Babajangeldimuradow" target="_blank">ADA</a> - söwda toplumy.
                         </p>
                     </div>
                 </div>
@@ -76,68 +73,45 @@
 </footer>
 <!-- /End Footer Area -->
 
+<!-- JS Scriptler -->
+<script src="{{ asset('frontend/js/jquery.min.js') }}"></script>
+<script src="{{ asset('frontend/js/jquery-migrate-3.0.0.js') }}"></script>
+<script src="{{ asset('frontend/js/jquery-ui.min.js') }}"></script>
+<script src="{{ asset('frontend/js/popper.min.js') }}"></script>
+<script src="{{ asset('frontend/js/bootstrap.min.js') }}"></script>
+<script src="{{ asset('frontend/js/colors.js') }}"></script>
+<script src="{{ asset('frontend/js/slicknav.min.js') }}"></script>
+<script src="{{ asset('frontend/js/owl-carousel.js') }}"></script>
+<script src="{{ asset('frontend/js/magnific-popup.js') }}"></script>
+<script src="{{ asset('frontend/js/waypoints.min.js') }}"></script>
+<script src="{{ asset('frontend/js/finalcountdown.min.js') }}"></script>
+<script src="{{ asset('frontend/js/nicesellect.js') }}"></script>
+<script src="{{ asset('frontend/js/flex-slider.js') }}"></script>
+<script src="{{ asset('frontend/js/scrollup.js') }}"></script>
+<script src="{{ asset('frontend/js/onepage-nav.min.js') }}"></script>
+<script src="{{ asset('frontend/js/isotope/isotope.pkgd.min.js') }}"></script>
+<script src="{{ asset('frontend/js/easing.js') }}"></script>
+<script src="{{ asset('frontend/js/active.js') }}"></script>
 
- 
-	<!-- Jquery -->
-    <script src="{{asset('frontend/js/jquery.min.js')}}"></script>
-    <script src="{{asset('frontend/js/jquery-migrate-3.0.0.js')}}"></script>
-	<script src="{{asset('frontend/js/jquery-ui.min.js')}}"></script>
-	<!-- Popper JS -->
-	<script src="{{asset('frontend/js/popper.min.js')}}"></script>
-	<!-- Bootstrap JS -->
-	<script src="{{asset('frontend/js/bootstrap.min.js')}}"></script>
-	<!-- Color JS -->
-	<script src="{{asset('frontend/js/colors.js')}}"></script>
-	<!-- Slicknav JS -->
-	<script src="{{asset('frontend/js/slicknav.min.js')}}"></script>
-	<!-- Owl Carousel JS -->
-	<script src="{{asset('frontend/js/owl-carousel.js')}}"></script>
-	<!-- Magnific Popup JS -->
-	<script src="{{asset('frontend/js/magnific-popup.js')}}"></script>
-	<!-- Waypoints JS -->
-	<script src="{{asset('frontend/js/waypoints.min.js')}}"></script>
-	<!-- Countdown JS -->
-	<script src="{{asset('frontend/js/finalcountdown.min.js')}}"></script>
-	<!-- Nice Select JS -->
-	<script src="{{asset('frontend/js/nicesellect.js')}}"></script>
-	<!-- Flex Slider JS -->
-	<script src="{{asset('frontend/js/flex-slider.js')}}"></script>
-	<!-- ScrollUp JS -->
-	<script src="{{asset('frontend/js/scrollup.js')}}"></script>
-	<!-- Onepage Nav JS -->
-	<script src="{{asset('frontend/js/onepage-nav.min.js')}}"></script>
-	{{-- Isotope --}}
-	<script src="{{asset('frontend/js/isotope/isotope.pkgd.min.js')}}"></script>
-	<!-- Easing JS -->
-	<script src="{{asset('frontend/js/easing.js')}}"></script>
+@stack('scripts')
+<script>
+    setTimeout(function(){
+      $('.alert').slideUp();
+    },5000);
 
-	<!-- Active JS -->
-	<script src="{{asset('frontend/js/active.js')}}"></script>
+    $(function() {
+        $("ul.dropdown-menu [data-toggle='dropdown']").on("click", function(event) {
+            event.preventDefault();
+            event.stopPropagation();
 
-	
-	@stack('scripts')
-	<script>
-		setTimeout(function(){
-		  $('.alert').slideUp();
-		},5000);
-		$(function() {
-		// ------------------------------------------------------- //
-		// Multi Level dropdowns
-		// ------------------------------------------------------ //
-			$("ul.dropdown-menu [data-toggle='dropdown']").on("click", function(event) {
-				event.preventDefault();
-				event.stopPropagation();
+            $(this).siblings().toggleClass("show");
 
-				$(this).siblings().toggleClass("show");
-
-
-				if (!$(this).next().hasClass('show')) {
-				$(this).parents('.dropdown-menu').first().find('.show').removeClass("show");
-				}
-				$(this).parents('li.nav-item.dropdown.show').on('hidden.bs.dropdown', function(e) {
-				$('.dropdown-submenu .show').removeClass("show");
-				});
-
-			});
-		});
-	  </script>
+            if (!$(this).next().hasClass('show')) {
+                $(this).parents('.dropdown-menu').first().find('.show').removeClass("show");
+            }
+            $(this).parents('li.nav-item.dropdown.show').on('hidden.bs.dropdown', function(e) {
+                $('.dropdown-submenu .show').removeClass("show");
+            });
+        });
+    });
+</script>

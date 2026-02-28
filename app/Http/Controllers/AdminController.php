@@ -68,7 +68,13 @@ class AdminController extends Controller
         // return $data;
         $settings=Settings::first();
         // return $settings;
-        $status=$settings->fill($data)->save();
+      $settings = Settings::first(); // ýa-da find(1)
+if(!$settings){
+    // Row ýok, şonuň üçin täze row döret
+    $settings = new Settings();
+}
+
+$status = $settings->fill($data)->save();
         if($status){
             request()->session()->flash('success','Sazlamalar üstünlikli täzelendi.');
         }
