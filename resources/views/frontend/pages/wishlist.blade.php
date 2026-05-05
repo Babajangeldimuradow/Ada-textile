@@ -86,8 +86,8 @@
                 <!-- Start Single Service -->
                 <div class="single-service">
                     <i class="ti-reload"></i>
-                    <h4>Mugt gaýdyp gelmek</h4>
-                    <p>30 günüň içinde gaýdyp gelýär</p>
+                    <h4>Dürli hilli önümler</h4>
+                    <p>Islegiňe görä haryt tapyp bilersiňiz</p>
                 </div>
                 <!-- End Single Service -->
             </div>
