@@ -175,7 +175,12 @@
 														<div class="button-head">
 															<div class="product-action">
 																<a data-toggle="modal" data-target="#{{$product->id}}" title="Çalt gözden geçirmek" href="#"><i class=" ti-eye"></i><span>Çalt satyn alyş</span></a>
-																<a title="Islendik sanawa goş" class="wishlist-btn {{ in_array($product->id, $wishlist_product_ids) ? 'favorited' : '' }}" data-product-id="{{$product->id}}"><i class=" ti-heart "></i><span>Islendik sanawa goş</span></a>
+																<a title="Islendik sanawa goş" 
+   class="wishlist-btn {{ (isset($wishlist_product_ids) && is_array($wishlist_product_ids) && in_array($product->id, $wishlist_product_ids)) ? 'favorited' : '' }}" 
+   data-product-id="{{$product->id}}">
+   <i class="ti-heart"></i>
+   <span>Islendik sanawa goş</span>
+</a>
 															</div>
 															<div class="product-action-2">
 																<a title="Sebede goş" href="{{route('add-to-cart',$product->slug)}}">Sebede goş</a>
