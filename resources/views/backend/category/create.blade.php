@@ -5,7 +5,7 @@
 <div class="card">
     <h5 class="card-header">Kategoriýa goşmak</h5>
     <div class="card-body">
-      <form method="post" action="{{route('category.store')}}">
+      <form method="post" action="{{route('category.store')}}" enctype="multipart/form-data">
         {{csrf_field()}}
         <div class="form-group">
           <label for="inputTitle" class="col-form-label">Ady <span class="text-danger">*</span></label>
@@ -40,20 +40,11 @@
         </div>
 
         <div class="form-group">
-          <label for="inputPhoto" class="col-form-label">Surat</label>
-          <div class="input-group">
-              <span class="input-group-btn">
-                  <a id="lfm" data-input="thumbnail" data-preview="holder" class="btn btn-primary">
-                  <i class="fa fa-picture-o"></i> Saýla
-                  </a>
-              </span>
-          <input id="thumbnail" class="form-control" type="text" name="photo" value="{{old('photo')}}">
-        </div>
-        <div id="holder" style="margin-top:15px;max-height:100px;"></div>
-
-          @error('photo')
-          <span class="text-danger">{{$message}}</span>
-          @enderror
+            <label for="inputPhoto" class="col-form-label">Surat</label>
+            <input id="inputPhoto" class="form-control" type="file" name="photo">
+            @error('photo')
+            <span class="text-danger">{{$message}}</span>
+            @enderror
         </div>
         
         <div class="form-group">
@@ -80,11 +71,8 @@
 <link rel="stylesheet" href="{{asset('backend/summernote/summernote.min.css')}}">
 @endpush
 @push('scripts')
-<script src="/vendor/laravel-filemanager/js/stand-alone-button.js"></script>
 <script src="{{asset('backend/summernote/summernote.min.js')}}"></script>
 <script>
-    $('#lfm').filemanager('image');
-
     $(document).ready(function() {
       $('#summary').summernote({
         placeholder: "Gysga düşündiriş ýazyň...",

@@ -5,7 +5,7 @@
 <div class="card">
     <h5 class="card-header">Ulanyjyny üýtgetmek</h5>
     <div class="card-body">
-      <form method="post" action="{{route('users.update',$user->id)}}">
+      <form method="post" action="{{route('users.update',$user->id)}}" enctype="multipart/form-data">
         @csrf 
         @method('PATCH')
         <div class="form-group">
@@ -33,32 +33,21 @@
         </div> --}}
 
         <div class="form-group">
-        <label for="inputPhoto" class="col-form-label">Surat</label>
-        <div class="input-group">
-            <span class="input-group-btn">
-                <a id="lfm" data-input="thumbnail" data-preview="holder" class="btn btn-primary">
-                <i class="fa fa-picture-o"></i> Saýla
-                </a>
-            </span>
-            <input id="thumbnail" class="form-control" type="text" name="photo" value="{{$user->photo}}">
+            <label for="inputPhoto" class="col-form-label">Surat</label>
+            <div class="input-group">
+                <input id="thumbnail" class="form-control" type="file" name="photo" onchange="previewImage(event)">
+            </div>
+            <img id="holder" style="margin-top:15px;max-height:100px;" src="{{$user->photo ? asset($user->photo) : ''}}">
+            @error('photo')
+            <span class="text-danger">{{$message}}</span>
+            @enderror
         </div>
-        <img id="holder" style="margin-top:15px;max-height:100px;">
-          @error('photo')
-          <span class="text-danger">{{$message}}</span>
-          @enderror
-        </div>
-        @php 
-        $roles=DB::table('users')->select('role')->where('id',$user->id)->get();
-        // dd($roles);
-        @endphp
         <div class="form-group">
             <label for="role" class="col-form-label">Roly</label>
             <select name="role" class="form-control">
                 <option value="">-----Roly saýla-----</option>
-                @foreach($roles as $role)
-                    <option value="{{$role->role}}" {{(($role->role=='admin') ? 'selected' : '')}}>Admin</option>
-                    <option value="{{$role->role}}" {{(($role->role=='user') ? 'selected' : '')}}>User</option>
-                @endforeach
+                <option value="admin" {{((old('role') ? old('role') : $user->role) == 'admin') ? 'selected' : ''}}>Admin</option>
+                <option value="user" {{((old('role') ? old('role') : $user->role) == 'user') ? 'selected' : ''}}>User</option>
             </select>
           @error('role')
           <span class="text-danger">{{$message}}</span>
@@ -84,8 +73,14 @@
 @endsection
 
 @push('scripts')
-<script src="/vendor/laravel-filemanager/js/stand-alone-button.js"></script>
 <script>
-    $('#lfm').filemanager('image');
+    function previewImage(event) {
+        var reader = new FileReader();
+        reader.onload = function(){
+            var output = document.getElementById('holder');
+            output.src = reader.result;
+        };
+        reader.readAsDataURL(event.target.files[0]);
+    }
 </script>
 @endpush

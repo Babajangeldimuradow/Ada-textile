@@ -5,7 +5,7 @@
 <div class="card">
     <h5 class="card-header">Kategoriýany üýtgetmek</h5>
     <div class="card-body">
-      <form method="post" action="{{route('category.update',$category->id)}}">
+      <form method="post" action="{{route('category.update',$category->id)}}" enctype="multipart/form-data">
         @csrf 
         @method('PATCH')
         <div class="form-group">
@@ -44,19 +44,14 @@
         </div>
 
         <div class="form-group">
-          <label for="inputPhoto" class="col-form-label">Surat</label>
-          <div class="input-group">
-              <span class="input-group-btn">
-                  <a id="lfm" data-input="thumbnail" data-preview="holder" class="btn btn-primary">
-                  <i class="fa fa-picture-o"></i> Saýla
-                  </a>
-              </span>
-          <input id="thumbnail" class="form-control" type="text" name="photo" value="{{$category->photo}}">
-        </div>
-        <div id="holder" style="margin-top:15px;max-height:100px;"></div>
-          @error('photo')
-          <span class="text-danger">{{$message}}</span>
-          @enderror
+            <label for="inputPhoto" class="col-form-label">Surat</label>
+            <input id="inputPhoto" class="form-control" type="file" name="photo">
+            @if($category->photo)
+                <img src="{{asset('storage/' . $category->photo)}}" alt="category photo" style="max-width: 150px; margin-top: 10px;">
+            @endif
+            @error('photo')
+            <span class="text-danger">{{$message}}</span>
+            @enderror
         </div>
         
         <div class="form-group">
@@ -82,11 +77,8 @@
 <link rel="stylesheet" href="{{asset('backend/summernote/summernote.min.css')}}">
 @endpush
 @push('scripts')
-<script src="/vendor/laravel-filemanager/js/stand-alone-button.js"></script>
 <script src="{{asset('backend/summernote/summernote.min.js')}}"></script>
 <script>
-    $('#lfm').filemanager('image');
-
     $(document).ready(function() {
     $('#summary').summernote({
       placeholder: "Write short description.....",

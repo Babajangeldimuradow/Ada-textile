@@ -27,7 +27,7 @@
                                 @if(Auth::user()->role=='admin')
                                     <li><i class="ti-user"></i> <a href="{{route('admin')}}"  target="_blank">Dashboard</a></li>
                                 @else 
-                                    <li><i class="ti-user"></i> <a href="{{route('user')}}"  target="_blank">Dashboard</a></li>
+                                    <li><i class="ti-user"></i> <a href="{{route('user')}}"  target="_blank">Profile</a></li>
                                 @endif
                                 <li><i class="ti-power-off"></i> <a href="{{route('user.logout')}}">Çykmak</a></li>
 
@@ -127,7 +127,7 @@
                                                     @endphp
                                                     <li>
                                                         <a href="{{route('wishlist-delete',$data->id)}}" class="remove" title="Remove this item"><i class="fa fa-remove"></i></a>
-                                                        <a class="cart-img" href="#"><img src="{{$photo[0]}}" alt="{{$photo[0]}}"></a>
+                                                        <a class="cart-img" href="#"><img src="{{asset('storage/' . $photo[0])}}" alt="{{$photo[0]}}"></a>
                                                         <h4><a href="{{route('product-detail',$data->product['slug'])}}" target="_blank">{{$data->product['title']}}</a></h4>
                                                         <p class="quantity">{{$data->quantity}} x - <span class="amount">{{number_format($data->price,2)}}TMT</span></p>
                                                     </li>
@@ -164,7 +164,7 @@
                                                     @endphp
                                                     <li>
                                                         <a href="{{route('cart-delete',$data->id)}}" class="remove" title="Remove this item"><i class="fa fa-remove"></i></a>
-                                                        <a class="cart-img" href="#"><img src="{{$photo[0]}}" alt="{{$photo[0]}}"></a>
+                                                        <a class="cart-img" href="#"><img src="{{asset('storage/' . $photo[0])}}" alt="{{$photo[0]}}"></a>
                                                         <h4><a href="{{route('product-detail',$data->product['slug'])}}" target="_blank">{{$data->product['title']}}</a></h4>
                                                         <p class="quantity">{{$data->quantity}} x - <span class="amount">{{number_format($data->price,2)}}TMT</span></p>
                                                     </li>

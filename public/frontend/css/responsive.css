@@ -466,26 +466,11 @@ Version:1.0
 .header .middle-inner{
 	width:100%;
 }
-.header.sticky .middle-inner{
-	position:fixed;
-	top:0;
-	left:0;
-	background:#fff;
-	animation: fadeInDown 1s both 0.2s;
-	-webkit-box-shadow:0px 0px 10px rgba(0, 0, 0, 0.3);
-	-moz-box-shadow:0px 0px 10px rgba(0, 0, 0, 0.3);
-	box-shadow:0px 0px 10px rgba(0, 0, 0, 0.3);
-	z-index:999;
-}
-/* Header Search */
-.header.shop .search-top {
-	display:block;
-	position: absolute;
-	right: 50px;
-	top: 4px;
-}
 .header.shop .logo {
 	margin: 0;
+}
+.header .logo img {
+    max-height: 30px; /* Telefonlarda logo boyutunu küçültmek için eklendi */
 }
 .section{
 	padding:50px 0px;
@@ -522,14 +507,30 @@ Version:1.0
 .header.shop .all-category {
 	display: none;
 }
-.header .header-inner{
-	display:none 
-}
 .hero-slider {
-	height: 350px;
+	height: auto; /* Make height flexible */
+}
+#Gslider .carousel-inner{
+	height: 250px; /* Override inline style for mobile */
+}
+#Gslider .carousel-inner .carousel-caption {
+	bottom: 20%; /* Adjust caption position */
+	text-align: center; /* Center text for mobile */
+}
+#Gslider .carousel-inner .carousel-caption h1 {
+	font-size: 24px; /* Smaller heading */
+	line-height: 1.2;
+}
+#Gslider .carousel-inner .carousel-caption p {
+	font-size: 14px; /* Smaller paragraph */
+	margin: 10px 0;
+}
+#Gslider .carousel-inner .carousel-caption .btn {
+	padding: 8px 15px; /* Smaller button */
+	font-size: 12px;
 }
 .hero-slider .hero-text {
-	margin-top: 60px;
+	margin-top: 30px; /* Adjust margin for hero text */
 }
 .hero-slider .hero-text h1 {
 	font-size: 30px;
@@ -638,6 +639,24 @@ Version:1.0
 .product-area .nav-tabs .nav-item {
 	margin-bottom: 10px;
 }
+.product-area .nav-main .btn {
+	font-size: 12px; /* Smaller font for filter buttons */
+	padding: 8px 12px;
+	margin-bottom: 5px; /* Add some margin for stacking */
+}
+.product-area .nav-main .btn.how-active1 {
+	font-size: 12px; /* Smaller font for active filter button */
+	padding: 8px 12px;
+}
+.single-product .product-content h3 a {
+	font-size: 14px; /* Smaller product title */
+}
+.single-product .product-price span {
+	font-size: 14px; /* Smaller price */
+}
+.single-product .product-price del {
+	font-size: 12px; /* Smaller old price */
+}
 .small-banner {
 	padding: 18px 0;
 	
@@ -655,18 +674,19 @@ Version:1.0
 	margin-top: 16px;
 }
 .midium-banner .single-banner .content {
-	padding: 35px;
+	padding: 20px; /* Adjust padding for smaller screens */
 }
 .midium-banner .single-banner{
 	margin-bottom:15px;
 }
 .midium-banner .single-banner h3 {
-	font-size: 20px;
-	line-height: 24px;
+	font-size: 18px; /* Smaller heading */
+	line-height: 22px;
 }
 .midium-banner .single-banner a {
-	padding: 6px 20px;
-	margin-top: 15px;
+	padding: 5px 15px; /* Adjust button padding */
+	margin-top: 10px;
+	font-size: 12px;
 }
 .most-popular .single-product {
 	margin: 20px 15px 0 15px;
@@ -675,12 +695,14 @@ Version:1.0
 	margin-top: 20px;
 }
 .shop-home-list .single-list .content {
-	padding: 0;
-	padding: 20px;
+	padding: 15px; /* Adjust padding */
 	text-align: center;
 }
-.shop.single .product-des .size {
-	margin-top: 10px;
+.shop-home-list .single-list .content .title a {
+	font-size: 14px; /* Smaller title */
+}
+.shop-home-list .single-list .content .price {
+	font-size: 14px; /* Smaller price */
 }
 .shop.single .product-des .short h4 {
 	font-size: 20px;
@@ -772,20 +794,24 @@ Version:1.0
 	margin-bottom: 30px;
 }
 .shop-services{
-	padding:50px 0;
+	padding:30px 0; /* Adjust section padding */
 }
 .shop-services .single-service {
-	padding: 42px 0 18px 0;
+	padding: 20px 0; /* Adjust padding */
 	text-align: center;
 }
 .shop-services .single-service i {
-	height: 40px;
-	width: 40px;
-	line-height: 40px;
-	font-size: 24px;
-	top: 0;
-	left: 50%;
-	margin-left:-20px;
+	font-size: 20px; /* Smaller icon */
+	height: 35px;
+	width: 35px;
+	line-height: 35px;
+	margin-left: -17.5px; /* Adjust margin for centering */
+}
+.shop-services .single-service h4 {
+	font-size: 14px; /* Smaller heading */
+}
+.shop-services .single-service p {
+	font-size: 12px; /* Smaller paragraph */
 }
 .shop-services.home {
 	padding: 25px 0;
@@ -799,16 +825,17 @@ Version:1.0
 	display:block;
 	text-align:center;
 }
-.shop-newsletter .newsletter-inner .btn {
-	height: 42px;
-	padding: 10px 15px;
-	width: 330px;
-	border-radius: 30px;
-	left:0;
-	display:block;
-}
 .shop-blog .shop-single-blog .content {
-	padding: 28px;
+	padding: 20px; /* Adjust padding */
+}
+.shop-blog .shop-single-blog .content .date {
+	font-size: 11px; /* Smaller date font */
+}
+.shop-blog .shop-single-blog .content .title {
+	font-size: 16px; /* Smaller title font */
+}
+.shop-blog .shop-single-blog .content .more-btn {
+	font-size: 12px; /* Smaller button font */
 }
 .shop-blog.grid .shop-single-blog{
 	margin-top:0px;

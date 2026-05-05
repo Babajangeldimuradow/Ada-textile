@@ -164,10 +164,8 @@
             <form-group>
                 <input name="payment_method" type="radio" value="cod" checked>
                 <label>Nagt</label><br>
-
-                <input id="payCardOption" name="payment_method" type="radio" value="paypal">
-
-                <label>Kart arkaly</label>
+<input id="payCardOption" name="payment_method" type="radio" value="paypal" disabled>
+<label>Kart arkaly (häzirki wagtda ýok)</label>
             </form-group>
         </div>
     </div>
@@ -312,16 +310,20 @@
 	<script>
 document.addEventListener("DOMContentLoaded", function () {
 
-    document.getElementById('payCardOption').addEventListener('change', function() {
-        Swal.fire({
-            title: "Bu hyzmat taýýar däl!",
-            text: "Kart arkaly töleg häzirki wagtda elýeterli däl.",
-            icon: "info",
-            confirmButtonText: "Çykmak"
-        });
+    let payCard = document.getElementById('payCardOption');
 
-        document.querySelector('input[value="cod"]').checked = true;
-    });
+    if(payCard){
+        payCard.addEventListener('change', function() {
+            Swal.fire({
+                title: "Bu hyzmat taýýar däl!",
+                text: "Kart arkaly töleg häzirki wagtda elýeterli däl.",
+                icon: "info",
+                confirmButtonText: "Çykmak"
+            });
+
+            document.querySelector('input[value="cod"]').checked = true;
+        });
+    }
 
 });
 

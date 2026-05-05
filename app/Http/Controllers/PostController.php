@@ -50,7 +50,7 @@ class PostController extends Controller
             'quote'=>'string|nullable',
             'summary'=>'string|required',
             'description'=>'string|nullable',
-            'photo'=>'string|nullable',
+            'photo'=>'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'tags'=>'nullable',
             'added_by'=>'nullable',
             'post_cat_id'=>'required',
@@ -58,6 +58,11 @@ class PostController extends Controller
         ]);
 
         $data=$request->all();
+
+        if ($request->hasFile('photo')) {
+            $path = $request->file('photo')->store('public/posts');
+            $data['photo'] = str_replace('public/', '', $path);
+        }
 
         $slug=Str::slug($request->title);
         $count=Post::where('slug',$slug)->count();
@@ -127,7 +132,7 @@ class PostController extends Controller
             'quote'=>'string|nullable',
             'summary'=>'string|required',
             'description'=>'string|nullable',
-            'photo'=>'string|nullable',
+            'photo'=>'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'tags'=>'nullable',
             'added_by'=>'nullable',
             'post_cat_id'=>'required',
@@ -135,6 +140,19 @@ class PostController extends Controller
         ]);
 
         $data=$request->all();
+
+        if ($request->hasFile('photo')) {
+            // Delete old photo if exists
+            if ($post->photo && \Storage::disk('public')->exists($post->photo)) {
+                \Storage::disk('public')->delete($post->photo);
+            }
+            $path = $request->file('photo')->store('public/posts');
+            $data['photo'] = str_replace('public/', '', $path);
+        } else {
+            // Retain existing photo if no new one is uploaded
+            $data['photo'] = $post->photo;
+        }
+
         $tags=$request->input('tags');
         // return $tags;
         if($tags){

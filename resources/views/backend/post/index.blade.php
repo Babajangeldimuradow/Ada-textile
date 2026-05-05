@@ -65,7 +65,7 @@
                     </td>
                     <td>
                         @if($post->photo)
-                            <img src="{{$post->photo}}" class="img-fluid zoom" style="max-width:80px" alt="{{$post->photo}}">
+                            <img src="{{asset('storage/' . $post->photo)}}" class="img-fluid zoom" style="max-width:80px" alt="{{$post->photo}}">
                         @else
                             <img src="{{asset('backend/img/thumbnail-default.jpg')}}" class="img-fluid" style="max-width:80px" alt="avatar.png">
                         @endif

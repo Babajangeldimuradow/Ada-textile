@@ -88,14 +88,27 @@
                                         @endphp
                                         <div class="single-post first">
                                             <div class="image">
-                                                <img src="{{$photo[0]}}" alt="{{$photo[0]}}">
+                                                <img src="{{asset('storage/' . $photo[0])}}" alt="{{$photo[0]}}">
                                             </div>
                                             <div class="content">
                                                 <h5><a href="{{route('product-detail',$product->slug)}}">{{$product->title}}</a></h5>
                                                 @php
                                                     $org=($product->price-($product->price*$product->discount)/100);
                                                 @endphp
-                                                <p class="price"><del class="text-muted">{{number_format($product->price,2)}}TMT</del>   {{number_format($org,2)}} TMT </p>
+                                              @if($product->discount > 0)
+
+<p class="price">
+<del class="text-muted">{{number_format($product->price,2)}} TMT</del>
+{{number_format($org,2)}} TMT
+</p>
+
+@else
+
+<p class="price">
+{{number_format($product->price,2)}} TMT
+</p>
+
+@endif
                                             </div>
                                         </div>
                                         <!-- End Single Post -->
@@ -165,8 +178,8 @@
                                                     @php
                                                         $photo=explode(',',$product->photo);
                                                     @endphp
-                                                    <img class="default-img" src="{{$photo[0]}}" alt="{{$photo[0]}}">
-                                                    <img class="hover-img" src="{{$photo[0]}}" alt="{{$photo[0]}}">
+                                                    <img class="default-img" src="{{asset('storage/' . $photo[0])}}" alt="{{$photo[0]}}">
+                                                    <img class="hover-img" src="{{asset('storage/' . $photo[0])}}" alt="{{$photo[0]}}">
                                                     @if($product->discount)
                                                                 <span class="price-dec">{{$product->discount}} % Arzanladyş</span>
                                                     @endif
@@ -174,7 +187,7 @@
                                                 <div class="button-head">
                                                     <div class="product-action">
                                                         <a data-toggle="modal" data-target="#{{$product->id}}" title="Çalt Gözden Geçirme" href="#"><i class=" ti-eye"></i><span>Çalt satyn al</span></a>
-                                                        <a title="Hyzmat ýazgy" href="{{route('add-to-wishlist',$product->slug)}}" class="wishlist" data-id="{{$product->id}}"><i class=" ti-heart "></i><span>Hyzmat ýazgy</span></a>
+                                                        <a title="Hyzmat ýazgy" class="wishlist-btn {{ in_array($product->id, $wishlist_product_ids) ? 'favorited' : '' }}" data-product-id="{{$product->id}}"><i class=" ti-heart "></i><span>Hyzmat ýazgy</span></a>
                                                     </div>
                                                     <div class="product-action-2">
                                                         <a title="Sebede goş" href="{{route('add-to-cart',$product->slug)}}">Sebede goş</a>
@@ -183,11 +196,20 @@
                                             </div>
                                             <div class="product-content">
                                                 <h3><a href="{{route('product-detail',$product->slug)}}">{{$product->title}}</a></h3>
-                                                @php
-                                                    $after_discount=($product->price-($product->price*$product->discount)/100);
-                                                @endphp
-                                                <span>{{number_format($after_discount,2)}}TMT</span>
-                                                <del style="padding-left:4%;">{{number_format($product->price,2)}}TMT</del>
+@php
+    $after_discount = ($product->price - ($product->price * $product->discount) / 100);
+@endphp
+
+@if($product->discount > 0)
+
+<span>{{number_format($after_discount,2)}} TMT</span>
+<del style="padding-left:4%;">{{number_format($product->price,2)}} TMT</del>
+
+@else
+
+<span>{{number_format($product->price,2)}} TMT</span>
+
+@endif
                                             </div>
                                         </div>
                                     </div>
@@ -221,43 +243,58 @@
         margin-top:10px;
         color: white;
     }
+    .wishlist-btn.favorited i {
+        color: red; /* Change to your desired favorited color */
+    }
 </style>
 @endpush
 @push('scripts')
     <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
-    {{-- <script>
-        $('.cart').click(function(){
-            var quantity=1;
-            var pro_id=$(this).data('id');
-            $.ajax({
-                url:"{{route('add-to-cart')}}",
-                type:"POST",
-                data:{
-                    _token:"{{csrf_token()}}",
-                    quantity:quantity,
-                    pro_id:pro_id
-                },
-                success:function(response){
-                    console.log(response);
-					if(typeof(response)!='object'){
-						response=$.parseJSON(response);
-					}
-					if(response.status){
-						swal('success',response.msg,'success').then(function(){
-							document.location.href=document.location.href;
-						});
-					}
-                    else{
-                        swal('error',response.msg,'error').then(function(){
-							// document.location.href=document.location.href;
-						});
-                    }
-                }
-            })
-        });
-    </script> --}}
     <script>
         $(document).ready(function(){
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+
+            $('.wishlist-btn').on('click', function(e){
+                e.preventDefault();
+                var product_id = $(this).data('product-id');
+                var $this = $(this); // Store reference to the button
+
+                $.ajax({
+                    url: "{{ route('wishlist.toggle') }}",
+                    type: "POST",
+                    data: {
+                        product_id: product_id,
+                        _token: "{{ csrf_token() }}"
+                    },
+                    success: function(response){
+                        if(response.status){
+                            if(response.action === 'added'){
+                                $this.addClass('favorited');
+                                swal('Üstünlikli!', response.message, 'success');
+                            } else {
+                                $this.removeClass('favorited');
+                                swal('Üstünlikli!', response.message, 'success');
+                            }
+                        } else {
+                            swal('Ýalňyşlyk!', response.message, 'error');
+                        }
+                    },
+                    error: function(xhr, status, error){
+                        if(xhr.status === 401){ // Unauthorized
+                            swal('Giriş ediň!', 'Bu funksiýany ulanmak üçin giriş etmeli.', 'warning').then(() => {
+                                window.location.href = "{{ route('login.form') }}";
+                            });
+                        } else {
+                            swal('Ýalňyşlyk!', 'Bir zat ýalňyş boldy, gaýtadan synanyşyň.', 'error');
+                        }
+                    }
+                });
+            });
+
         /*----------------------------------------------------*/
         /*  Jquery Ui slider js
         /*----------------------------------------------------*/

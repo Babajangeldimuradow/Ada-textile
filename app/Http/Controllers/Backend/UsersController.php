@@ -31,11 +31,21 @@ class UsersController extends Controller
             'password' => 'required|string|min:5',
             'role' => 'required|string|in:admin,user',
             'status' => 'required|string|in:active,inactive',
-            'photo' => 'nullable|string',
+            'photo' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
 
         $data = $request->all();
         $data['password'] = Hash::make($request->password);
+
+        if ($request->hasFile('photo')) {
+            $image = $request->file('photo');
+            $name = time().'.'.$image->getClientOriginalExtension();
+            $destinationPath = public_path('/images/users');
+            $image->move($destinationPath, $name);
+            $data['photo'] = '/images/users/'.$name;
+        } else {
+            $data['photo'] = null;
+        }
 
         $status = User::create($data);
 
@@ -67,7 +77,7 @@ class UsersController extends Controller
             'password' => 'nullable|string|min:5',
             'role' => 'required|string|in:admin,user',
             'status' => 'required|string|in:active,inactive',
-            'photo' => 'nullable|string',
+            'photo' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
 
         $data = $request->all();
@@ -77,6 +87,16 @@ class UsersController extends Controller
             $data['password'] = Hash::make($data['password']);
         } else {
             unset($data['password']); // Password boş bolsa üýtgetme
+        }
+
+        if ($request->hasFile('photo')) {
+            $image = $request->file('photo');
+            $name = time().'.'.$image->getClientOriginalExtension();
+            $destinationPath = public_path('/images/users');
+            $image->move($destinationPath, $name);
+            $data['photo'] = '/images/users/'.$name;
+        } else {
+            $data['photo'] = $user->photo;
         }
 
         $status = $user->fill($data)->save();

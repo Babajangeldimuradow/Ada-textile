@@ -88,7 +88,7 @@
 									@endphp
 									<div class="single-post first">
 										<div class="image">
-											<img src="{{$photo[0]}}" alt="{{$photo[0]}}">
+											<img src="{{asset('storage/' . $photo[0])}}" alt="{{$photo[0]}}">
 										</div>
 										<div class="content">
 											<h5><a href="{{route('product-detail',$product->slug)}}">{{$product->title}}</a></h5>
@@ -169,13 +169,13 @@
 															@php 
 																$photo=explode(',',$product->photo);
 															@endphp
-															<img class="default-img" src="{{$photo[0]}}" alt="{{$photo[0]}}">
-															<img class="hover-img" src="{{$photo[0]}}" alt="{{$photo[0]}}">
+															<img class="default-img" src="{{asset('storage/' . $photo[0])}}" alt="{{$photo[0]}}">
+															<img class="hover-img" src="{{asset('storage/' . $photo[0])}}" alt="{{$photo[0]}}">
 														</a>
 														<div class="button-head">
 															<div class="product-action">
 																<a data-toggle="modal" data-target="#{{$product->id}}" title="Çalt gözden geçirmek" href="#"><i class=" ti-eye"></i><span>Çalt satyn alyş</span></a>
-																<a title="Islendik sanawa goş" href="{{route('add-to-wishlist',$product->slug)}}" class="wishlist" data-id="{{$product->id}}"><i class=" ti-heart "></i><span>Islendik sanawa goş</span></a>
+																<a title="Islendik sanawa goş" class="wishlist-btn {{ in_array($product->id, $wishlist_product_ids) ? 'favorited' : '' }}" data-product-id="{{$product->id}}"><i class=" ti-heart "></i><span>Islendik sanawa goş</span></a>
 															</div>
 															<div class="product-action-2">
 																<a title="Sebede goş" href="{{route('add-to-cart',$product->slug)}}">Sebede goş</a>
@@ -191,8 +191,12 @@
 															@php
 																$after_discount=($product->price-($product->price*$product->discount)/100);
 															@endphp
-															<span>{{number_format($after_discount,2)}}TMT</span>
-															<del>{{number_format($product->price,2)}}TMT</del>
+															@if($product->discount > 0)
+																<span>{{number_format($after_discount,2)}}TMT</span>
+																<del>{{number_format($product->price,2)}}TMT</del>
+															@else
+																<span>{{number_format($product->price,2)}}TMT</span>
+															@endif
 														</div>
 														<h3 class="title"><a href="{{route('product-detail',$product->slug)}}">{{$product->title}}</a></h3>
 													</div>
@@ -229,74 +233,89 @@
 			margin-top:10px;
 			color: white;
 		}
+        .wishlist-btn.favorited i {
+            color: red; /* Change to your desired favorited color */
+        }
 	</style>
 	@endpush
 	@push('scripts')
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
 
-		{{-- <script>
-			$('.cart').click(function(){
-				var quantity=1;
-				var pro_id=$(this).data('id');
-				$.ajax({
-					url:"{{route('add-to-cart')}}",
-					type:"POST",
-					data:{
-						_token:"{{csrf_token()}}",
-						quantity:quantity,
-						pro_id:pro_id
-					},
-					success:function(response){
-						console.log(response);
-						if(typeof(response)!='object'){
-							response=$.parseJSON(response);
-						}
-						if(response.status){
-							swal('success',response.msg,'success').then(function(){
-								document.location.href=document.location.href;
-							});
-						}
-						else{
-							swal('error',response.msg,'error').then(function(){
-								// document.location.href=document.location.href;
-							}); 
-						}
-					}
-				})
-			});
-		</script> --}}
 		<script>
-$(document).ready(function(){
-    if ($("#slider-range").length > 0) {
-        const max_value = parseInt($("#slider-range").data('max')) || 500;
-        const min_value = parseInt($("#slider-range").data('min')) || 0;
-        const currency = 'TMT ';
-        let price_range = min_value + '-' + max_value;
-        
-        if($("#price_range").length > 0 && $("#price_range").val()){
-            price_range = $("#price_range").val().trim();
-        }
+            $(document).ready(function(){
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
 
-        let price = price_range.split('-');
-        $("#slider-range").slider({
-            range: true,
-            min: min_value,
-            max: max_value,
-            values: price,
-            slide: function (event, ui) {
-                $("#amount").val(currency + ui.values[0] + " - " + currency + ui.values[1]);
-                $("#price_range").val(ui.values[0] + "-" + ui.values[1]);
-            }
-        });
-    }
+                $('.wishlist-btn').on('click', function(e){
+                    e.preventDefault();
+                    var product_id = $(this).data('product-id');
+                    var $this = $(this); // Store reference to the button
 
-    if ($("#amount").length > 0) {
-        const m_currency = 'TMT ';
-        $("#amount").val(m_currency + $("#slider-range").slider("values", 0) +
-            " - " + m_currency + $("#slider-range").slider("values", 1));
-    }
-});
+                    $.ajax({
+                        url: "{{ route('wishlist.toggle') }}",
+                        type: "POST",
+                        data: {
+                            product_id: product_id,
+                            _token: "{{ csrf_token() }}"
+                        },
+                        success: function(response){
+                            if(response.status){
+                                if(response.action === 'added'){
+                                    $this.addClass('favorited');
+                                    swal('Üstünlikli!', response.message, 'success');
+                                } else {
+                                    $this.removeClass('favorited');
+                                    swal('Üstünlikli!', response.message, 'success');
+                                }
+                            } else {
+                                swal('Ýalňyşlyk!', response.message, 'error');
+                            }
+                        },
+                        error: function(xhr, status, error){
+                            if(xhr.status === 401){ // Unauthorized
+                                swal('Giriş ediň!', 'Bu funksiýany ulanmak üçin giriş etmeli.', 'warning').then(() => {
+                                    window.location.href = "{{ route('login.form') }}";
+                                });
+                            } else {
+                                swal('Ýalňyşlyk!', 'Bir zat ýalňyş boldy, gaýtadan synanyşyň.', 'error');
+                            }
+                        }
+                    });
+                });
 
-		</script>
+                // Jquery Ui slider js
+                if ($("#slider-range").length > 0) {
+                    const max_value = parseInt($("#slider-range").data('max')) || 500;
+                    const min_value = parseInt($("#slider-range").data('min')) || 0;
+                    const currency = 'TMT ';
+                    let price_range = min_value + '-' + max_value;
+                    
+                    if($("#price_range").length > 0 && $("#price_range").val()){
+                        price_range = $("#price_range").val().trim();
+                    }
+
+                    let price = price_range.split('-');
+                    $("#slider-range").slider({
+                        range: true,
+                        min: min_value,
+                        max: max_value,
+                        values: price,
+                        slide: function (event, ui) {
+                            $("#amount").val(currency + ui.values[0] + " - " + currency + ui.values[1]);
+                            $("#price_range").val(ui.values[0] + "-" + ui.values[1]);
+                        }
+                    });
+                }
+
+                if ($("#amount").length > 0) {
+                    const m_currency = 'TMT ';
+                    $("#amount").val(m_currency + $("#slider-range").slider("values", 0) +
+                        " - " + m_currency + $("#slider-range").slider("values", 1));
+                }
+            });
+        </script>
 
 	@endpush

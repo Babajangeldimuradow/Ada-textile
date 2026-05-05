@@ -40,11 +40,16 @@ class CategoryController extends Controller
         $validatedData = $request->validate([
             'title' => 'required|string',
             'summary' => 'nullable|string',
-            'photo' => 'nullable|string',
+            'photo' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'status' => 'required|in:active,inactive',
             'is_parent' => 'sometimes|in:1',
             'parent_id' => 'nullable|exists:categories,id',
         ]);
+
+        if ($request->hasFile('photo')) {
+            $path = $request->file('photo')->store('public/categories');
+            $validatedData['photo'] = str_replace('public/', '', $path);
+        }
 
         $slug = generateUniqueSlug($request->title, Category::class);
         $validatedData['slug'] = $slug;
@@ -100,11 +105,23 @@ class CategoryController extends Controller
         $validatedData = $request->validate([
             'title' => 'required|string',
             'summary' => 'nullable|string',
-            'photo' => 'nullable|string',
+            'photo' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'status' => 'required|in:active,inactive',
             'is_parent' => 'sometimes|in:1',
             'parent_id' => 'nullable|exists:categories,id',
         ]);
+
+        if ($request->hasFile('photo')) {
+            // Delete old photo if exists
+            if ($category->photo && \Storage::disk('public')->exists($category->photo)) {
+                \Storage::disk('public')->delete($category->photo);
+            }
+            $path = $request->file('photo')->store('public/categories');
+            $validatedData['photo'] = str_replace('public/', '', $path);
+        } else {
+            // Retain existing photo if no new one is uploaded
+            $validatedData['photo'] = $category->photo;
+        }
 
         $validatedData['is_parent'] = $request->input('is_parent', 0);
 

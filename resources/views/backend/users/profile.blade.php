@@ -36,7 +36,7 @@
                   </div>
             </div>
             <div class="col-md-8">
-                <form class="border px-4 pt-2 pb-3" method="POST" action="{{route('profile-update',$profile->id)}}">
+                <form class="border px-4 pt-2 pb-3" method="POST" action="{{route('profile-update',$profile->id)}}" enctype="multipart/form-data">
                     @csrf
                     <div class="form-group">
                         <label for="inputTitle" class="col-form-label">Adyňyz</label>
@@ -57,13 +57,9 @@
                       <div class="form-group">
                       <label for="inputPhoto" class="col-form-label">Surat</label>
                       <div class="input-group">
-                          <span class="input-group-btn">
-                              <a id="lfm" data-input="thumbnail" data-preview="holder" class="btn btn-primary">
-                              <i class="fa fa-picture-o"></i> Saýla
-                              </a>
-                          </span>
-                          <input id="thumbnail" class="form-control" type="text" name="photo" value="{{$profile->photo}}">
+                          <input id="thumbnail" class="form-control" type="file" name="photo" onchange="previewImage(event)">
                       </div>
+                      <img id="holder" style="margin-top:15px;max-height:100px;" src="{{$profile->photo ? asset($profile->photo) : ''}}">
                         @error('photo')
                         <span class="text-danger">{{$message}}</span>
                         @enderror
@@ -126,8 +122,14 @@
   </style> 
 
 @push('scripts')
-<script src="/vendor/laravel-filemanager/js/stand-alone-button.js"></script>
 <script>
-    $('#lfm').filemanager('image');
+    function previewImage(event) {
+        var reader = new FileReader();
+        reader.onload = function(){
+            var output = document.getElementById('holder');
+            output.src = reader.result;
+        };
+        reader.readAsDataURL(event.target.files[0]);
+    }
 </script>
 @endpush

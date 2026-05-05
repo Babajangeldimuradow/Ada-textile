@@ -239,6 +239,9 @@ Version:1.0
 	-moz-transition: all 0.4s ease;
 	transition: all 0.4s ease;
 }
+.header .logo img {
+    max-height: 50px; /* Logo boyutunu küçültmek için eklendi */
+}
 .header .navbar {
 	padding: 0;
 }

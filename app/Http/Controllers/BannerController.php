@@ -40,9 +40,14 @@ class BannerController extends Controller
         $validatedData = $request->validate([
             'title' => 'required|string|max:50',
             'description' => 'nullable|string',
-            'photo' => 'required|string',
+            'photo' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'status' => 'required|in:active,inactive',
         ]);
+
+        if ($request->hasFile('photo')) {
+            $path = $request->file('photo')->store('public/banners');
+            $validatedData['photo'] = str_replace('public/', '', $path);
+        }
 
         $slug = $this->generateUniqueSlug($request->title);
         $validatedData['slug'] = $slug;
@@ -96,9 +101,21 @@ class BannerController extends Controller
         $validatedData = $request->validate([
             'title' => 'required|string|max:50',
             'description' => 'nullable|string',
-            'photo' => 'required|string',
+            'photo' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048', // Make photo nullable for update
             'status' => 'required|in:active,inactive',
         ]);
+
+        if ($request->hasFile('photo')) {
+            // Delete old photo if exists
+            if ($banner->photo && \Storage::disk('public')->exists($banner->photo)) {
+                \Storage::disk('public')->delete($banner->photo);
+            }
+            $path = $request->file('photo')->store('public/banners');
+            $validatedData['photo'] = str_replace('public/', '', $path);
+        } else {
+            // Retain existing photo if no new one is uploaded
+            $validatedData['photo'] = $banner->photo;
+        }
 
         $status = $banner->update($validatedData);
 

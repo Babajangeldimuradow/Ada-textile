@@ -44,7 +44,7 @@
 											@php
 											$photo=explode(',',$cart->product['photo']);
 											@endphp
-											<td class="image" data-title="No"><img src="{{$photo[0]}}" alt="{{$photo[0]}}"></td>
+											<td class="image" data-title="No"><img src="{{asset('storage/' . $photo[0])}}" alt="{{$photo[0]}}"></td>
 											<td class="product-des" data-title="Description">
 												<p class="product-name"><a href="{{route('product-detail',$cart->product['slug'])}}" target="_blank">{{$cart->product['title']}}</a></p>
 												<p class="product-des">{!!($cart['summary']) !!}</p>
@@ -140,7 +140,7 @@
 										@endif
 									</ul>
 									<div class="button5">
-										<a href="{{route('checkout')}}" class="btn">Çykyş</a>
+										<a href="{{route('checkout')}}" class="btn">Sargyt etmek</a>
 										<a href="{{route('product-grids')}}" class="btn">Söwdany dowam etdiriň</a>
 									</div>
 								</div>

@@ -35,9 +35,21 @@ class AdminController extends Controller
     }
 
     public function profileUpdate(Request $request,$id){
-        // return $request->all();
         $user=User::findOrFail($id);
+        $this->validate($request,[
+            'name'=>'string|required|max:30',
+            'photo'=>'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        ]);
         $data=$request->all();
+        if ($request->hasFile('photo')) {
+            $image = $request->file('photo');
+            $name = time().'.'.$image->getClientOriginalExtension();
+            $destinationPath = public_path('/images/users');
+            $image->move($destinationPath, $name);
+            $data['photo'] = '/images/users/'.$name;
+        } else {
+            $data['photo'] = $user->photo;
+        }
         $status=$user->fill($data)->save();
         if($status){
             request()->session()->flash('success','Profiliňizi üstünlikli täzeledi');
